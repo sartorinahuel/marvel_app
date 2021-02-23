@@ -1,1 +1,5 @@
-abstract class SeriesRepository {}
+import '../models/serie.dart';
+
+abstract class SeriesRepository {
+  Future<List<Serie>> getSeries();
+}

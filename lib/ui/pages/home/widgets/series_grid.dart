@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:marvel_app/domain/globals.dart';
+import 'package:marvel_app/domain/models/serie.dart';
 import 'package:marvel_app/ui/pages/home/bloc/homebloc_bloc.dart';
+import 'package:marvel_app/ui/pages/series_detail/series_detail_page.dart';
 
 class HomeGridView extends StatefulWidget {
   @override
@@ -37,27 +39,30 @@ class _HomeGridViewState extends State<HomeGridView> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return BlocBuilder<HomePageBloc, HomeblocState>(
       builder: (context, state) {
         if (state is HomeDataState || state is HomeLoadingMoreState) {
           return Container(
             child: SingleChildScrollView(
               controller: controller,
+              physics: BouncingScrollPhysics(),
               child: Column(
                 children: [
                   GridView.builder(
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: size.width > 400 ? 3 : 2),
                     itemCount: seriesRepo.series.length,
                     itemBuilder: (context, index) {
-                      return Container(child: Text(seriesRepo.series[index].title));
+                      return SeriesGridItemContainer(serie: seriesRepo.series[index]);
                     },
                   ),
                   if (state is HomeLoadingMoreState)
                     Container(
-                      height: 30,
-                      width: double.infinity,
+                      margin: const EdgeInsets.only(bottom: 40),
+                      height: 20,
+                      width: 20,
                       child: Center(child: CircularProgressIndicator()),
                     ),
                 ],
@@ -67,6 +72,60 @@ class _HomeGridViewState extends State<HomeGridView> {
         }
         return Center(child: CircularProgressIndicator());
       },
+    );
+  }
+}
+
+class SeriesGridItemContainer extends StatelessWidget {
+  final Serie serie;
+
+  const SeriesGridItemContainer({
+    Key key,
+    this.serie,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (BuildContext context) => SeriesDetailPage(serie: serie),
+          ),
+        );
+      },
+      child: Container(
+        margin: const EdgeInsets.all(8),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Expanded(
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  image: DecorationImage(
+                    image: NetworkImage(serie.thumbnail.path + '.' + serie.thumbnail.fileExtension),
+                  ),
+                ),
+              ),
+            ),
+            Container(
+              child: Text(
+                serie.title,
+                style: TextStyle(
+                  color: Colors.black,
+                  shadows: [
+                    Shadow(
+                      color: Colors.grey[400],
+                    ),
+                  ],
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

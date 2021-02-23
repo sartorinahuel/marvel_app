@@ -1,4 +1,4 @@
-import '../lib/domain/globals.dart';
+import 'package:marvel_app/domain/globals.dart';
 
 void main() async {
   // final characters = await charRepo.getCharacterByName('steve');
@@ -26,8 +26,11 @@ void main() async {
   //   print('==================\n');
   // }
 
-  final series = await seriesRepo.getSeries(0);
-  print(series.length);
-  final series2 = await seriesRepo.getSeries(0);
-  print(series2.length);
+  // final series = await seriesRepo.getSeries(0);
+  // print(series.length);
+  // final series2 = await seriesRepo.getSeries(0);
+  // print(series2.length);
+
+  final creator = await creatorsRepo.getCreatorById('12958');
+  print(creator.firstName);
 }

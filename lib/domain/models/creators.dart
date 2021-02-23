@@ -1,7 +1,7 @@
 class Creators {
   int available;
   String collectionUri;
-  List<Creator> items;
+  List<CreatorItem> items;
   int returned;
 
   Creators({this.available, this.collectionUri, this.items, this.returned});
@@ -10,7 +10,7 @@ class Creators {
     if (json["available"] is int) this.available = json["available"];
     if (json["collectionURI"] is String) this.collectionUri = json["collectionURI"];
     if (json["items"] is List)
-      this.items = json["items"] == null ? [] : (json["items"] as List).map((e) => Creator.fromJson(e)).toList();
+      this.items = json["items"] == null ? [] : (json["items"] as List).map((e) => CreatorItem.fromJson(e)).toList();
     if (json["returned"] is int) this.returned = json["returned"];
   }
 
@@ -24,15 +24,19 @@ class Creators {
   }
 }
 
-class Creator {
+class CreatorItem {
   String resourceUri;
   String name;
   String role;
 
-  Creator({this.resourceUri, this.name, this.role});
+  CreatorItem({this.resourceUri, this.name, this.role});
 
-  Creator.fromJson(Map<String, dynamic> json) {
-    if (json["resourceURI"] is String) this.resourceUri = json["resourceURI"];
+  CreatorItem.fromJson(Map<String, dynamic> json) {
+    if (json["resourceURI"] is String) {
+      String s = json["resourceURI"];
+      var d = s.split('/');
+      this.resourceUri = d.last;
+    }
     if (json["name"] is String) this.name = json["name"];
     if (json["role"] is String) this.role = json["role"];
   }

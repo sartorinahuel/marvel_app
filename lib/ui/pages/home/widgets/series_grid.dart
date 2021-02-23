@@ -88,11 +88,7 @@ class SeriesGridItemContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (BuildContext context) => SeriesDetailPage(serie: serie),
-          ),
-        );
+        Navigator.of(context).pushNamed('series-detail', arguments: serie);
       },
       child: Container(
         margin: const EdgeInsets.all(8),
@@ -100,11 +96,14 @@ class SeriesGridItemContainer extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  image: DecorationImage(
-                    image: NetworkImage(serie.thumbnail.path + '.' + serie.thumbnail.fileExtension),
+              child: Hero(
+                tag: serie.id,
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    image: DecorationImage(
+                      image: NetworkImage(serie.thumbnail.path + '.' + serie.thumbnail.fileExtension),
+                    ),
                   ),
                 ),
               ),

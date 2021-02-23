@@ -1,5 +1,7 @@
 import '../models/serie.dart';
 
 abstract class SeriesRepository {
-  Future<List<Serie>> getSeries();
+  List<Serie> series = [];
+
+  Future<List<Serie>> getSeries(int offset);
 }

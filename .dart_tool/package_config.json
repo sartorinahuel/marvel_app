@@ -8,6 +8,12 @@
       "languageVersion": "2.10"
     },
     {
+      "name": "bloc",
+      "rootUri": "file:///Users/nahuelsartori/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/bloc-6.1.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.6"
+    },
+    {
       "name": "boolean_selector",
       "rootUri": "file:///Users/nahuelsartori/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/boolean_selector-2.1.0-nullsafety.1",
       "packageUri": "lib/",
@@ -68,6 +74,12 @@
       "languageVersion": "2.10"
     },
     {
+      "name": "flutter_bloc",
+      "rootUri": "file:///Users/nahuelsartori/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_bloc-6.1.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.6"
+    },
+    {
       "name": "flutter_test",
       "rootUri": "file:///Users/nahuelsartori/Documents/flutter/packages/flutter_test",
       "packageUri": "lib/",
@@ -98,6 +110,12 @@
       "languageVersion": "2.10"
     },
     {
+      "name": "nested",
+      "rootUri": "file:///Users/nahuelsartori/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/nested-0.0.4",
+      "packageUri": "lib/",
+      "languageVersion": "2.2"
+    },
+    {
       "name": "path",
       "rootUri": "file:///Users/nahuelsartori/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/path-1.8.0-nullsafety.1",
       "packageUri": "lib/",
@@ -108,6 +126,12 @@
       "rootUri": "file:///Users/nahuelsartori/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/pedantic-1.9.2",
       "packageUri": "lib/",
       "languageVersion": "2.1"
+    },
+    {
+      "name": "provider",
+      "rootUri": "file:///Users/nahuelsartori/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/provider-4.3.3",
+      "packageUri": "lib/",
+      "languageVersion": "2.7"
     },
     {
       "name": "sky_engine",
@@ -170,7 +194,7 @@
       "languageVersion": "2.7"
     }
   ],
-  "generated": "2021-02-23T14:59:22.982356Z",
+  "generated": "2021-02-23T16:52:23.891414Z",
   "generator": "pub",
   "generatorVersion": "2.10.5"
 }

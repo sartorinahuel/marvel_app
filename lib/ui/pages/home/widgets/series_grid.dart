@@ -30,7 +30,8 @@ class _HomeGridViewState extends State<HomeGridView> {
   }
 
   void _scrollListener() {
-    if (controller.position.extentAfter < 5) {
+    if (controller.position.extentAfter == 0) {
+      controller.jumpTo(controller.position.maxScrollExtent - 1);
       offset += 20;
       _homePageBloc.add(HomeGetMoreSeriesEvent(offset));
     }
@@ -41,11 +42,15 @@ class _HomeGridViewState extends State<HomeGridView> {
     final size = MediaQuery.of(context).size;
     return Container(
       child: RefreshIndicator(
+        key: UniqueKey(),
         onRefresh: () async {
-          return BlocProvider.of<HomePageBloc>(context).add(HomeGetSeriesEvent());
+          offset = 0;
+          BlocProvider.of<HomePageBloc>(context).add(HomeGetSeriesEvent());
         },
         child: BlocBuilder<HomePageBloc, HomeblocState>(
           builder: (context, state) {
+            print(offset);
+            print(state.toString());
             if (state is HomeDataState || state is HomeLoadingMoreState) {
               return SingleChildScrollView(
                 controller: controller,

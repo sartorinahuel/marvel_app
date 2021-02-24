@@ -12,7 +12,10 @@ class HomePage extends StatelessWidget {
       create: (context) => HomePageBloc(),
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Marvel App'),
+          title: Text(
+            'Marvel App',
+            style: Theme.of(context).textTheme.headline1,
+          ),
         ),
         drawer: AppDrawer(),
         body: HomeGridView(),

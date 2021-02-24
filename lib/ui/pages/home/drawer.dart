@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AppDrawer extends StatelessWidget {
   @override
@@ -10,7 +11,10 @@ class AppDrawer extends StatelessWidget {
             children: [
               ListTile(
                 leading: Icon(Icons.settings),
-                title: Text('Settings'),
+                title: Text(
+                  AppLocalizations.of(context).settings,
+                  style: Theme.of(context).textTheme.bodyText1,
+                ),
                 onTap: () {
                   Navigator.pop(context);
                   Navigator.of(context).pushNamed('settings');
@@ -19,7 +23,7 @@ class AppDrawer extends StatelessWidget {
               SizedBox(height: 10),
               ListTile(
                 leading: Icon(Icons.help_outlined),
-                title: Text('Support'),
+                title: Text(AppLocalizations.of(context).support),
                 onTap: () {
                   Navigator.pop(context);
                   Navigator.of(context).pushNamed('support');

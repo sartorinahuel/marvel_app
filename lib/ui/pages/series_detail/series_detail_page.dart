@@ -21,7 +21,7 @@ class SeriesDetailPage extends StatelessWidget {
             SliverList(
               delegate: SliverChildListDelegate([
                 SizedBox(height: 10.0),
-                _descripcion(serie),
+                _Description(serie),
                 _Creators(serie),
               ]),
             )
@@ -30,12 +30,20 @@ class SeriesDetailPage extends StatelessWidget {
       ),
     );
   }
+}
 
-  Widget _descripcion(Serie serie) {
+class _Description extends StatelessWidget {
+  final Serie serie;
+
+  const _Description(this.serie);
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
       child: Text(
         serie.description ?? 'Sin descripción',
+        style: Theme.of(context).textTheme.bodyText1,
         textAlign: TextAlign.justify,
       ),
     );
@@ -59,7 +67,8 @@ class _BuildAppBar extends StatelessWidget {
         centerTitle: true,
         title: Text(
           serie.title,
-          style: Theme.of(context).textTheme.headline2,
+          style: Theme.of(context).textTheme.headline1,
+          textAlign: TextAlign.center,
         ),
         background: Hero(
           tag: tagKey,
@@ -147,9 +156,15 @@ class __CreatorItemState extends State<_CreatorItem> {
             children: [
               avatar,
               SizedBox(width: 15),
-              Text(widget.name),
+              Text(
+                widget.name,
+                style: Theme.of(context).textTheme.bodyText1,
+              ),
               Spacer(),
-              Text(widget.role),
+              Text(
+                widget.role,
+                style: Theme.of(context).textTheme.bodyText2,
+              ),
             ],
           ),
         );

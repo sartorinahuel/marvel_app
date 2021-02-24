@@ -1,0 +1,10 @@
+{
+  "settings": "Settings",
+  "@settings": {
+    "description": "Settings page"
+  },
+  "support": "Support",
+  "@support": {
+    "description": "Support page"
+  }
+}

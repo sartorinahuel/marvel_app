@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:marvel_app/domain/globals.dart';
 import 'package:marvel_app/domain/models/serie.dart';
 import 'package:marvel_app/ui/pages/home/bloc/homebloc_bloc.dart';
-import 'package:marvel_app/ui/pages/series_detail/series_detail_page.dart';
 
 class HomeGridView extends StatefulWidget {
   @override
@@ -40,15 +39,15 @@ class _HomeGridViewState extends State<HomeGridView> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return BlocBuilder<HomePageBloc, HomeblocState>(
-      builder: (context, state) {
-        if (state is HomeDataState || state is HomeLoadingMoreState) {
-          return Container(
-            child: RefreshIndicator(
-              onRefresh: () async {
-                return BlocProvider.of<HomePageBloc>(context).add(HomeGetSeriesEvent());
-              },
-              child: SingleChildScrollView(
+    return Container(
+      child: RefreshIndicator(
+        onRefresh: () async {
+          return BlocProvider.of<HomePageBloc>(context).add(HomeGetSeriesEvent());
+        },
+        child: BlocBuilder<HomePageBloc, HomeblocState>(
+          builder: (context, state) {
+            if (state is HomeDataState || state is HomeLoadingMoreState) {
+              return SingleChildScrollView(
                 controller: controller,
                 physics: BouncingScrollPhysics(),
                 child: Column(
@@ -71,12 +70,12 @@ class _HomeGridViewState extends State<HomeGridView> {
                       ),
                   ],
                 ),
-              ),
-            ),
-          );
-        }
-        return Center(child: CircularProgressIndicator());
-      },
+              );
+            }
+            return Center(child: CircularProgressIndicator());
+          },
+        ),
+      ),
     );
   }
 }
@@ -111,17 +110,11 @@ class SeriesGridItemContainer extends StatelessWidget {
                 ),
               ),
             ),
+            SizedBox(height: 2),
             Container(
               child: Text(
                 serie.title,
-                style: TextStyle(
-                  color: Colors.black,
-                  shadows: [
-                    Shadow(
-                      color: Colors.grey[400],
-                    ),
-                  ],
-                ),
+                style: Theme.of(context).textTheme.headline2,
                 textAlign: TextAlign.center,
               ),
             ),

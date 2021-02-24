@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:marvel_app/ui/pages/series_detail/series_detail_page.dart';
-import 'package:marvel_app/ui/theme/theme.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import 'ui/theme/theme.dart';
+import 'ui/pages/series_detail/series_detail_page.dart';
 import 'ui/pages/home/home_page.dart';
 import 'ui/pages/settings/settings_page.dart';
 import 'ui/pages/support/support_page.dart';
@@ -13,6 +15,16 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Material App',
+      localizationsDelegates: [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: [
+        const Locale('en', ''),
+        const Locale('es', ''),
+      ],
       debugShowCheckedModeBanner: false,
       theme: AppTheme().lightTheme,
       home: HomePage(),

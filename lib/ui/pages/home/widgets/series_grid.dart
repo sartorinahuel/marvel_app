@@ -44,28 +44,33 @@ class _HomeGridViewState extends State<HomeGridView> {
       builder: (context, state) {
         if (state is HomeDataState || state is HomeLoadingMoreState) {
           return Container(
-            child: SingleChildScrollView(
-              controller: controller,
-              physics: BouncingScrollPhysics(),
-              child: Column(
-                children: [
-                  GridView.builder(
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: size.width > 400 ? 3 : 2),
-                    itemCount: seriesRepo.series.length,
-                    itemBuilder: (context, index) {
-                      return SeriesGridItemContainer(serie: seriesRepo.series[index]);
-                    },
-                  ),
-                  if (state is HomeLoadingMoreState)
-                    Container(
-                      margin: const EdgeInsets.only(bottom: 40),
-                      height: 20,
-                      width: 20,
-                      child: Center(child: CircularProgressIndicator()),
+            child: RefreshIndicator(
+              onRefresh: () async {
+                return BlocProvider.of<HomePageBloc>(context).add(HomeGetSeriesEvent());
+              },
+              child: SingleChildScrollView(
+                controller: controller,
+                physics: BouncingScrollPhysics(),
+                child: Column(
+                  children: [
+                    GridView.builder(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: size.width > 400 ? 3 : 2),
+                      itemCount: seriesRepo.series.length,
+                      itemBuilder: (context, index) {
+                        return SeriesGridItemContainer(serie: seriesRepo.series[index]);
+                      },
                     ),
-                ],
+                    if (state is HomeLoadingMoreState)
+                      Container(
+                        margin: const EdgeInsets.only(bottom: 40),
+                        height: 20,
+                        width: 20,
+                        child: Center(child: CircularProgressIndicator()),
+                      ),
+                  ],
+                ),
               ),
             ),
           );
@@ -79,16 +84,14 @@ class _HomeGridViewState extends State<HomeGridView> {
 class SeriesGridItemContainer extends StatelessWidget {
   final Serie serie;
 
-  const SeriesGridItemContainer({
-    Key key,
-    this.serie,
-  }) : super(key: key);
+  const SeriesGridItemContainer({this.serie});
 
   @override
   Widget build(BuildContext context) {
+    final tagKey = UniqueKey();
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).pushNamed('series-detail', arguments: serie);
+        Navigator.of(context).pushNamed('series-detail', arguments: [serie, tagKey]);
       },
       child: Container(
         margin: const EdgeInsets.all(8),
@@ -97,7 +100,7 @@ class SeriesGridItemContainer extends StatelessWidget {
           children: [
             Expanded(
               child: Hero(
-                tag: serie.id,
+                tag: tagKey,
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),

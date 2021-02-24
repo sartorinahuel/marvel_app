@@ -8,20 +8,22 @@ class AppDrawer extends StatelessWidget {
         child: SafeArea(
           child: Column(
             children: [
-              TextButton(
-                onPressed: () {
+              ListTile(
+                leading: Icon(Icons.settings),
+                title: Text('Settings'),
+                onTap: () {
                   Navigator.pop(context);
                   Navigator.of(context).pushNamed('settings');
                 },
-                child: Text('Settings'),
               ),
               SizedBox(height: 10),
-              TextButton(
-                onPressed: () {
+              ListTile(
+                leading: Icon(Icons.help_outlined),
+                title: Text('Support'),
+                onTap: () {
                   Navigator.pop(context);
                   Navigator.of(context).pushNamed('support');
                 },
-                child: Text('Support'),
               ),
             ],
           ),

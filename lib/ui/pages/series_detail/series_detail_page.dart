@@ -8,14 +8,16 @@ import 'package:marvel_app/ui/pages/series_detail/bloc/seriesdetail_bloc.dart';
 class SeriesDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final Serie serie = ModalRoute.of(context).settings.arguments;
+    final List args = ModalRoute.of(context).settings.arguments;
+    final Serie serie = args[0];
+    final UniqueKey tagKey = args[1];
 
     return BlocProvider(
       create: (context) => SeriesdetailBloc(),
       child: Scaffold(
         body: CustomScrollView(
           slivers: <Widget>[
-            _BuildAppBar(serie),
+            _BuildAppBar(serie, tagKey),
             SliverList(
               delegate: SliverChildListDelegate([
                 SizedBox(height: 10.0),
@@ -42,8 +44,9 @@ class SeriesDetailPage extends StatelessWidget {
 
 class _BuildAppBar extends StatelessWidget {
   final Serie serie;
+  final UniqueKey tagKey;
 
-  const _BuildAppBar(this.serie);
+  const _BuildAppBar(this.serie, this.tagKey);
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
@@ -59,7 +62,7 @@ class _BuildAppBar extends StatelessWidget {
           style: Theme.of(context).textTheme.headline2,
         ),
         background: Hero(
-          tag: serie.id,
+          tag: tagKey,
           child: FadeInImage(
             image: NetworkImage(serie.thumbnail.path + '.' + serie.thumbnail.fileExtension),
             placeholder: AssetImage('assets/img/no-image.jpg'),

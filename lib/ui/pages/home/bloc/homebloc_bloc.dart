@@ -17,7 +17,9 @@ class HomePageBloc extends Bloc<HomeblocEvent, HomeblocState> {
   Stream<HomeblocState> mapEventToState(HomeblocEvent event) async* {
     if (event is HomeGetSeriesEvent) {
       yield HomeLoadingState();
+      seriesRepo.series.clear();
       await seriesRepo.getSeries(0);
+      print(seriesRepo.series.length);
       yield HomeDataState(seriesRepo.series);
     }
 

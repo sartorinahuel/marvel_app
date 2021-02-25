@@ -15,7 +15,7 @@ class SeriesGridItemContainer extends StatelessWidget {
         Navigator.of(context).pushNamed('series-detail', arguments: [serie, tagKey]);
       },
       child: Container(
-        margin: const EdgeInsets.all(8),
+        margin: const EdgeInsets.all(12),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -24,7 +24,6 @@ class SeriesGridItemContainer extends StatelessWidget {
                 tag: tagKey,
                 child: Container(
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
                     image: DecorationImage(
                       image: NetworkImage(serie.thumbnail.path + '.' + serie.thumbnail.fileExtension),
                     ),

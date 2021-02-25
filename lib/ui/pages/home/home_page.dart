@@ -11,6 +11,7 @@ class HomePage extends StatelessWidget {
     return BlocProvider(
       create: (context) => HomePageBloc(),
       child: Scaffold(
+        backgroundColor: Theme.of(context).backgroundColor,
         appBar: AppBar(
           title: Text(
             'Marvel App',

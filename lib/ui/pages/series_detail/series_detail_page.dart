@@ -26,6 +26,7 @@ class SeriesDetailPage extends StatelessWidget {
             );
           }
           return Scaffold(
+            backgroundColor: Theme.of(context).backgroundColor,
             body: CustomScrollView(
               physics: BouncingScrollPhysics(),
               slivers: <Widget>[

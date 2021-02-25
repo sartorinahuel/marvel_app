@@ -62,6 +62,9 @@ class _HomeGridViewState extends State<HomeGridView> {
                 physics: BouncingScrollPhysics(),
                 child: Column(
                   children: [
+                    SizedBox(height: 20),
+                    Text('Series', style: Theme.of(context).textTheme.headline1),
+                    SizedBox(height: 20),
                     GridView.builder(
                       shrinkWrap: true,
                       physics: NeverScrollableScrollPhysics(),

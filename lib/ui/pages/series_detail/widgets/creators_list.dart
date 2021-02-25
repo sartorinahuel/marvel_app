@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:marvel_app/domain/models/serie.dart';
 import 'package:marvel_app/ui/pages/series_detail/bloc/seriesdetail_bloc.dart';
+import 'package:marvel_app/ui/theme/theme.dart';
 
 class Creators extends StatelessWidget {
   final Serie serie;
@@ -70,9 +71,12 @@ class __CreatorItemState extends State<_CreatorItem> {
           avatar = CircularProgressIndicator();
         }
         return Container(
-          margin: const EdgeInsets.all(5),
-          padding: const EdgeInsets.all(5),
-          color: Colors.grey,
+          margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
+          padding: const EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(5)),
+            color: AppTheme.marvelRed,
+          ),
           child: Row(
             children: [
               avatar,

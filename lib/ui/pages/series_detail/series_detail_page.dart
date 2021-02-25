@@ -19,12 +19,14 @@ class SeriesDetailPage extends StatelessWidget {
       create: (context) => SeriesdetailBloc(),
       child: BlocBuilder<SeriesdetailBloc, SeriesdetailState>(
         builder: (context, state) {
+          // error screen
           if (state is SeriesErrorState) {
             return ErrorScreen(
               state.appError.code,
               state.appError.message,
             );
           }
+
           return Scaffold(
             backgroundColor: Theme.of(context).backgroundColor,
             body: CustomScrollView(

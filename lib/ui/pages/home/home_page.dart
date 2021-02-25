@@ -19,6 +19,7 @@ class HomePage extends StatelessWidget {
             style: Theme.of(context).textTheme.headline1,
           ),
           actions: <Widget>[
+            //Search Button
             IconButton(
               icon: Icon(Icons.search),
               onPressed: () {

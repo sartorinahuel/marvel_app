@@ -8,13 +8,17 @@ import 'ui/pages/home/home_page.dart';
 import 'ui/pages/settings/settings_page.dart';
 import 'ui/pages/support/support_page.dart';
 
+// The app is separated into three folders: Data, Domain and Ui.
+// Domain contains the contracts to be followed by the implementations, the classes and the service contracts.
+// The Data folder contains the implementations of these contracts and in the UI it has all the screens and widgets.
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Material App',
+      title: 'Marvel App',
       localizationsDelegates: [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,

@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:marvel_app/ui/pages/home/bloc/homebloc_bloc.dart';
 import 'package:marvel_app/ui/pages/home/drawer.dart';
 import 'package:marvel_app/ui/pages/home/widgets/series_grid.dart';
+import 'package:marvel_app/ui/pages/search/series_search.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -17,6 +18,17 @@ class HomePage extends StatelessWidget {
             'Marvel App',
             style: Theme.of(context).textTheme.headline1,
           ),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.search),
+              onPressed: () {
+                showSearch(
+                  context: context,
+                  delegate: SeriesSearch(),
+                );
+              },
+            )
+          ],
         ),
         drawer: AppDrawer(),
         body: HomeGridView(),

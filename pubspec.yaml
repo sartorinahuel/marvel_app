@@ -30,6 +30,7 @@ dependencies:
   cupertino_icons: ^1.0.0
   flutter_bloc: ^6.1.2
   http: ^0.12.2
+  animate_do: ^1.7.5
 
 dev_dependencies:
   flutter_test:

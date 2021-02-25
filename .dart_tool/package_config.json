@@ -8,6 +8,12 @@
       "languageVersion": "2.7"
     },
     {
+      "name": "animate_do",
+      "rootUri": "../../../../flutter/.pub-cache/hosted/pub.dartlang.org/animate_do-1.7.5",
+      "packageUri": "lib",
+      "languageVersion": "2.1"
+    },
+    {
       "name": "async",
       "rootUri": "../../../../flutter/.pub-cache/hosted/pub.dartlang.org/async-2.5.0-nullsafety.1",
       "packageUri": "lib",

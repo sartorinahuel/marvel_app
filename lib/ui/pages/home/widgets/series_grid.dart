@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:animate_do/animate_do.dart';
 
 import 'package:marvel_app/domain/globals.dart';
 import 'package:marvel_app/ui/pages/home/widgets/series_grid_item.dart';
@@ -71,7 +72,12 @@ class _HomeGridViewState extends State<HomeGridView> {
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: size.width > 400 ? 3 : 2),
                       itemCount: seriesRepo.series.length,
                       itemBuilder: (context, index) {
-                        return SeriesGridItemContainer(serie: seriesRepo.series[index]);
+                        return SlideInUp(
+                          delay: Duration(milliseconds: 100 + 50 * index),
+                          duration: Duration(milliseconds: 300),
+                          from: 200,
+                          child: SeriesGridItemContainer(serie: seriesRepo.series[index]),
+                        );
                       },
                     ),
                     if (state is HomeLoadingMoreState)

@@ -22,4 +22,21 @@ class SeriesImplementation extends SeriesRepository {
       throw AppError(code: 'generic-error', message: 'An error occur');
     }
   }
+
+  @override
+  Future<List<Serie>> searchSeries(String title) async {
+    try {
+      final response = await httpService.getMethod('/series', '&titleStartsWith=$title');
+      final seriesResponse = SeriesResponse.fromJson(response);
+
+      return seriesResponse.data.results;
+    } on FormatException catch (e) {
+      throw AppError(code: 'format-exception', message: e.message);
+    } on AppError catch (_) {
+      rethrow;
+    } catch (e) {
+      print(e);
+      throw AppError(code: 'generic-error', message: 'An error occur');
+    }
+  }
 }

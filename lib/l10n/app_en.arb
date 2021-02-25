@@ -6,5 +6,9 @@
   "support": "Support",
   "@support": {
     "description": "Support page"
+  },
+  "noResults": "No Results",
+  "@noResults": {
+    "description": "no results"
   }
 }

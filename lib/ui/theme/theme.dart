@@ -14,7 +14,11 @@ class AppTheme {
   final lightTheme = ThemeData(
     primaryColor: marvelBlue,
     backgroundColor: marvelDarkBlue,
-    appBarTheme: AppBarTheme(color: marvelRed),
+    brightness: Brightness.dark,
+    appBarTheme: AppBarTheme(
+      color: marvelRed,
+      elevation: 5,
+    ),
     textTheme: TextTheme(
       headline1: TextStyle(
         fontSize: 20,

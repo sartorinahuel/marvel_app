@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:marvel_app/domain/models/app_error.dart';
 import 'package:meta/meta.dart';
 
 import 'package:marvel_app/domain/globals.dart';
@@ -17,16 +18,23 @@ class HomePageBloc extends Bloc<HomeblocEvent, HomeblocState> {
   Stream<HomeblocState> mapEventToState(HomeblocEvent event) async* {
     if (event is HomeGetSeriesEvent) {
       yield HomeLoadingState();
-      seriesRepo.series.clear();
-      await seriesRepo.getSeries(0);
-      print(seriesRepo.series.length);
-      yield HomeDataState(seriesRepo.series);
+      try {
+        seriesRepo.series.clear();
+        await seriesRepo.getSeries(0);
+        yield HomeDataState(seriesRepo.series);
+      } on AppError catch (e) {
+        yield HomeErrorState(e);
+      }
     }
 
     if (event is HomeGetMoreSeriesEvent) {
       yield HomeLoadingMoreState();
-      await seriesRepo.getSeries(event.offset);
-      yield HomeDataState(seriesRepo.series);
+      try {
+        await seriesRepo.getSeries(event.offset);
+        yield HomeDataState(seriesRepo.series);
+      } on AppError catch (e) {
+        yield HomeErrorState(e);
+      }
     }
   }
 }

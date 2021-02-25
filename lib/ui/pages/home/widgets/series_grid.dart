@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:marvel_app/domain/globals.dart';
-import 'package:marvel_app/domain/models/serie.dart';
+import 'package:marvel_app/ui/pages/home/widgets/series_grid_item.dart';
+import 'package:marvel_app/ui/widgets/error_page.dart';
 import 'package:marvel_app/ui/pages/home/bloc/homebloc_bloc.dart';
 
 class HomeGridView extends StatefulWidget {
@@ -49,8 +50,12 @@ class _HomeGridViewState extends State<HomeGridView> {
         },
         child: BlocBuilder<HomePageBloc, HomeblocState>(
           builder: (context, state) {
-            print(offset);
-            print(state.toString());
+            if (state is HomeErrorState) {
+              return ErrorScreen(
+                state.appError.code,
+                state.appError.message,
+              );
+            }
             if (state is HomeDataState || state is HomeLoadingMoreState) {
               return SingleChildScrollView(
                 controller: controller,
@@ -79,51 +84,6 @@ class _HomeGridViewState extends State<HomeGridView> {
             }
             return Center(child: CircularProgressIndicator());
           },
-        ),
-      ),
-    );
-  }
-}
-
-class SeriesGridItemContainer extends StatelessWidget {
-  final Serie serie;
-
-  const SeriesGridItemContainer({this.serie});
-
-  @override
-  Widget build(BuildContext context) {
-    final tagKey = UniqueKey();
-    return GestureDetector(
-      onTap: () {
-        Navigator.of(context).pushNamed('series-detail', arguments: [serie, tagKey]);
-      },
-      child: Container(
-        margin: const EdgeInsets.all(8),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Expanded(
-              child: Hero(
-                tag: tagKey,
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    image: DecorationImage(
-                      image: NetworkImage(serie.thumbnail.path + '.' + serie.thumbnail.fileExtension),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(height: 2),
-            Container(
-              child: Text(
-                serie.title,
-                style: Theme.of(context).textTheme.headline2,
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ],
         ),
       ),
     );

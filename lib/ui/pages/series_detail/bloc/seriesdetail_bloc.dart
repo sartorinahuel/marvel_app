@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:marvel_app/domain/globals.dart';
+import 'package:marvel_app/domain/models/app_error.dart';
 import 'package:marvel_app/domain/models/creator.dart';
 import 'package:meta/meta.dart';
 
@@ -15,8 +16,12 @@ class SeriesdetailBloc extends Bloc<SeriesdetailEvent, SeriesdetailState> {
   Stream<SeriesdetailState> mapEventToState(SeriesdetailEvent event) async* {
     if (event is SeriesGetCreatorEvent) {
       yield SeriesLoadingImageState();
-      Creator creator = await creatorsRepo.getCreatorById(event.creatorId);
-      yield SeriesCreatorsDataState(creator);
+      try {
+        Creator creator = await creatorsRepo.getCreatorById(event.creatorId);
+        yield SeriesCreatorsDataState(creator);
+      } on AppError catch (e) {
+        yield SeriesErrorState(e);
+      }
     }
   }
 }

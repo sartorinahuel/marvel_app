@@ -6,6 +6,7 @@ import 'package:marvel_app/ui/pages/series_detail/bloc/seriesdetail_bloc.dart';
 import 'package:marvel_app/ui/pages/series_detail/widgets/app_bar.dart';
 import 'package:marvel_app/ui/pages/series_detail/widgets/creators_list.dart';
 import 'package:marvel_app/ui/pages/series_detail/widgets/series_description.dart';
+import 'package:marvel_app/ui/widgets/error_page.dart';
 
 class SeriesDetailPage extends StatelessWidget {
   @override
@@ -16,20 +17,30 @@ class SeriesDetailPage extends StatelessWidget {
 
     return BlocProvider(
       create: (context) => SeriesdetailBloc(),
-      child: Scaffold(
-        body: CustomScrollView(
-          physics: BouncingScrollPhysics(),
-          slivers: <Widget>[
-            BuildAppBar(serie, tagKey),
-            SliverList(
-              delegate: SliverChildListDelegate([
-                SizedBox(height: 10.0),
-                Description(serie),
-                Creators(serie),
-              ]),
-            )
-          ],
-        ),
+      child: BlocBuilder<SeriesdetailBloc, SeriesdetailState>(
+        builder: (context, state) {
+          if (state is SeriesErrorState) {
+            return ErrorScreen(
+              state.appError.code,
+              state.appError.message,
+            );
+          }
+          return Scaffold(
+            body: CustomScrollView(
+              physics: BouncingScrollPhysics(),
+              slivers: <Widget>[
+                BuildAppBar(serie, tagKey),
+                SliverList(
+                  delegate: SliverChildListDelegate([
+                    SizedBox(height: 10.0),
+                    Description(serie),
+                    Creators(serie),
+                  ]),
+                )
+              ],
+            ),
+          );
+        },
       ),
     );
   }

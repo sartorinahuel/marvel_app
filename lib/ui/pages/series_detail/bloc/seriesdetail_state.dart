@@ -12,3 +12,9 @@ class SeriesCreatorsDataState extends SeriesdetailState {
 
   SeriesCreatorsDataState(this.creator);
 }
+
+class SeriesErrorState extends SeriesdetailState {
+  final AppError appError;
+
+  SeriesErrorState(this.appError);
+}

@@ -14,3 +14,9 @@ class HomeDataState extends HomeblocState {
 
   HomeDataState(this.data);
 }
+
+class HomeErrorState extends HomeblocState {
+  final AppError appError;
+
+  HomeErrorState(this.appError);
+}
